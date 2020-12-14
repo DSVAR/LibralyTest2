@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model Libraly.Data.Models.Users
+
+<div>
+    <div class="container row">
+        <div class="col-md-2">sw</div>
+        <form class="col-md-7" method="post" asp-controller="User" asp-action="Register">
+            <div class="card-columns card col-xl-12 form-centre">
+                <div class="valid-feedback" asp-validation-summary="ModelOnly"> sw</div>
+                <div class="editor-label form-group">
+                    <label asp-for="NickName" class="float-left">Ник</label>
+                    <input asp-for="NickName" class="form-control" placeholder="Nagibator" />
+                    <span asp-validation-for="NickName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="float-left">Имя</label>
+                    <input name="FirstName" asp-for="FirstName" class="form-control" placeholder="Iван" />
+                    <span asp-validation-for="FirstName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FullName" class="float-left">Фамилия</label>
+                    <input asp-for="FullName" class="form-control" placeholder="Пупкин" />
+                    <span asp-validation-for="FullName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="float-left">Почта</label>
+                    <input asp-for="Email" class="form-control" placeholder="Email@gmail.com" />
+                    <span asp-validation-for="Email" style="border-color:red; color:red "> </span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PasswordHash" class="float-left">Пароль</label>
+                    <input asp-for="PasswordHash" type="password" class="form-control" placeholder="Password" />
+                    <span asp-validation-for="PasswordHash"></span>
+                </div>
+                <button class="btn btn-group-toggle btn-primary" type="submit">Регистрация</button>
+            </div>
+        </form>
+        <div class="col-md-3">sw</div>
+    </div>
+</div>
