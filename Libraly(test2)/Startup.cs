@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Libraly.Data.Repositories;
 using Libraly.Data.Interfaces;
+using Libraly.Logical.User;
 
 namespace Libraly_test2_
 {
@@ -34,6 +35,7 @@ namespace Libraly_test2_
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<UserRepository>();
+            services.AddTransient<Registering>();
             services.AddIdentity<Users, IdentityRole>().AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.AddControllersWithViews();
         }

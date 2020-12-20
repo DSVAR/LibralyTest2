@@ -15,13 +15,13 @@ namespace Libraly_test2_.Controllers
         private readonly ApplicationContext AppContext;
         private string PatternEmail = @"^[A-Za-z0-9.+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$";
         private string PatternPassword = @"[A-Z0-9]";
-        //private readonly Registering Reg;
+        private readonly Registering Reg;
 
-        public UserController(ILogger<UserController> logger, ApplicationContext Context/*, Registering registering*/)
+        public UserController(ILogger<UserController> logger, ApplicationContext Context, Registering registering)
         {
             _logger = logger;
             AppContext = Context;
-            //Reg = registering;
+            Reg = registering;
         }
 
 
@@ -43,12 +43,12 @@ namespace Libraly_test2_.Controllers
             if (string.IsNullOrEmpty(model.FullName)) { ModelState.AddModelError("FullName", "Строка Фамилии пустая"); }
 
 
-           // if (string.IsNullOrEmpty(model.Email)) { ModelState.AddModelError("Email", "Строка почты пустая"); }
-           // else
-           // {
-           //  //   if (!Regex.IsMatch(model.Email, PatternEmail)) { ModelState.AddModelError("Email", "Не верный формат email"); }
-           ////     if (Reg.CheckMail(model.Email)) { ModelState.AddModelError("Email", "Такой почтовый ящик зарегистрирован"); }
-           // }
+            if (string.IsNullOrEmpty(model.Email)) { ModelState.AddModelError("Email", "Строка почты пустая"); }
+            else
+            {
+                if (!Regex.IsMatch(model.Email, PatternEmail)) { ModelState.AddModelError("Email", "Не верный формат email"); }
+                if (Reg.CheckMail(model.Email)) { ModelState.AddModelError("Email", "Такой почтовый ящик зарегистрирован"); }
+            }
 
             if (string.IsNullOrEmpty(model.PasswordHash)) { ModelState.AddModelError("PasswordHash", "Строка пароля пустая"); }
             else
