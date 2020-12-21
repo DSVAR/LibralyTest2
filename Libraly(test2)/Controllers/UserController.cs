@@ -13,8 +13,8 @@ namespace Libraly_test2_.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly ApplicationContext AppContext;
-        private string PatternEmail = @"^[A-Za-z0-9.+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$";
-        private string PatternPassword = @"[A-Z0-9]";
+        private string PatternEmail = @"^[A-Za-z0-9.+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,4}$";
+        private string PatternPassword = @"[A-Za-z0-9]";
         private readonly Registering Reg;
 
         public UserController(ILogger<UserController> logger, ApplicationContext Context, Registering registering)
@@ -47,13 +47,14 @@ namespace Libraly_test2_.Controllers
             else
             {
                 if (!Regex.IsMatch(model.Email, PatternEmail)) { ModelState.AddModelError("Email", "Не верный формат email"); }
-                if (Reg.CheckMail(model.Email)) { ModelState.AddModelError("Email", "Такой почтовый ящик зарегистрирован"); }
+                else
+                 if (Reg.CheckMail(model.Email)) { ModelState.AddModelError("Email", "Такой почтовый ящик зарегистрирован"); }
             }
 
             if (string.IsNullOrEmpty(model.PasswordHash)) { ModelState.AddModelError("PasswordHash", "Строка пароля пустая"); }
             else
             {
-                if (Regex.IsMatch(model.PasswordHash, PatternPassword)) { ModelState.AddModelError("PasswordHash", "бум"); }
+                if (Regex.IsMatch(model.PasswordHash, PatternPassword)) { /*ModelState.AddModelError("PasswordHash", "бум");*/ }
                 else { ModelState.AddModelError("PasswordHash", "пароль не совпадает с правилами"); }
             }
 
@@ -61,7 +62,7 @@ namespace Libraly_test2_.Controllers
             if (ModelState.IsValid)
             {
 
-                //регистрация и отправка на другую страницу
+                ModelState.AddModelError("PasswordHash","most likely");
             }
 
 

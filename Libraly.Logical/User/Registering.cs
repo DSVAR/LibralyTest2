@@ -25,12 +25,12 @@ namespace Libraly.Logical.User
 
         public bool CheckMail(string mail)
         {
-            User = UR.UserFind(mail);
-            if (User == null)
-                return false;
+            //User = UR.UserFind(mail);
+            //if (User == null)
+            //    return false;
 
-            else
-                return true;
+            //else
+            return false ;
         }
 
     }
