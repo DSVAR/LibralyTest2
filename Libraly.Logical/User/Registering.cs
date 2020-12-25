@@ -15,22 +15,37 @@ namespace Libraly.Logical.User
 
         public Registering(UserRepository repo)
         {
-          //  UR = repo;
+            UR = repo;
         }
 
-        public void Register(Users user)
+        public bool Register(Users user)
         {
-            
+            try { 
+            UR.AddUser(user);
+            UR.SaveChanges();
+                return true;
+            }
+            catch {
+            return false;
+            }
+
         }
 
         public bool CheckMail(string mail)
         {
-            //User = UR.UserFind(mail);
-            //if (User == null)
-            //    return false;
+            var users = UR.GetAllUsers();
+            foreach(var i in users)
+            {
+                if (i.Email == mail)
+                    User = i;
+            }
 
-            //else
-            return false ;
+            
+            if (User.Email == null)
+                return true ;
+
+            else
+                return false;
         }
 
     }

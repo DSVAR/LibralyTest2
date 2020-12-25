@@ -18,22 +18,22 @@ namespace Libraly.Data.Repositories
 
         public void AddUser(Users user)
         {
-            throw new NotImplementedException();
+            App.Users.Add(user);
         }
 
         public void DeleteUser(Users user)
         {
-            throw new NotImplementedException();
+            App.Users.Remove(user);
         }
 
         public IEnumerable<Users> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return App.Users;
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            App.SaveChanges();
         }
 
         public void UpdateUser(Users user)
@@ -43,7 +43,7 @@ namespace Libraly.Data.Repositories
 
         public Users UserFind(string value)
         {
-            return App.Users.Find(value);
+            return App.Users.Find(value) ;
         }
     }
 }

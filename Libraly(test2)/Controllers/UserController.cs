@@ -61,13 +61,18 @@ namespace Libraly_test2_.Controllers
 
             if (ModelState.IsValid)
             {
-
-                ModelState.AddModelError("PasswordHash","most likely");
+                if (Reg.Register(model))
+                {
+                   return RedirectToPage("/Home/Index");
+                }
+                else
+                {
+                    return RedirectToPage("/User/Register");
+                }
+                
             }
-
-
-
-            return View(model);
+            else
+                return View(model);
         }
 
 

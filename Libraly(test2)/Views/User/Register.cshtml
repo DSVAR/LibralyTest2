@@ -6,7 +6,23 @@
 
 <div>
     <div class="container row">
-        <div class="col-md-3">sw</div>
+        <div class="col-md-3">
+            
+            <ol class="list-group">
+                <p>
+                    Пароль должен иметь:
+                </p>
+                <li class="list-group-item list-group-item-danger">
+                    Заглавные буквы!
+                </li>
+                <li class="list-group-item list-group-item-info">
+                    Цифры!
+                </li>
+                <li class="list-group-item list-group-item-warning">
+                    Использовать только латиницу!
+                </li>
+            </ol>
+        </div>
         <form class="col-md-6" method="post" asp-controller="User" asp-action="Register">
             <div class="card-columns card col-xl-12 form-centre">
                 <div class="valid-feedback" asp-validation-summary="ModelOnly"> sw</div>
