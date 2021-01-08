@@ -42,11 +42,28 @@ namespace Libraly.Logical.User
 
             
             if (User.Email == null)
-                return true ;
+                return false ;
 
             else
-                return false;
+                return true;
         }
 
+        public bool CheckNickname(string nickname)
+        {
+            var users = UR.GetAllUsers();
+            foreach (var i in users)
+            {
+                if (i.NickName == nickname)
+                    User = i;
+            }
+
+
+            if (User.NickName == null)
+                return false;
+
+            else
+                return true;
+
+        }
     }
 }

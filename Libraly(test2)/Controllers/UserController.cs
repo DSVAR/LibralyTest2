@@ -36,7 +36,7 @@ namespace Libraly_test2_.Controllers
             if (string.IsNullOrEmpty(model.NickName)) { ModelState.AddModelError("NickName", "Строка никнейма пустая"); }
             else
             {
-                //есть похожий никнейм
+                if(Reg.CheckNickname(model.NickName)) { ModelState.AddModelError("NickName", "Такой ник уже существует"); }
             }
 
             if (string.IsNullOrEmpty(model.FirstName)) { ModelState.AddModelError("FirstName", "Строка имени пустая"); }
@@ -75,6 +75,10 @@ namespace Libraly_test2_.Controllers
                 return View(model);
         }
 
+        public IActionResult Entry(Users model)
+        {
+            return View(model);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

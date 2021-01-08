@@ -1,0 +1,28 @@
+﻿@model Libraly.Data.Models.Users
+
+<div>
+    <div class="container row">
+        <div class="col-md-3">
+
+        </div>
+        
+            <form class="col-md-6" method="post">
+                <div class="card-columns card col-xl-12 form-centre ">
+                    <div class="editor-label form-group">
+                        <span asp-validation-for="NickName" style="border-color:red; color:red "></span>
+                        <label asp-for="NickName" class="float-left">Ник</label>
+                        <input asp-for="NickName" class="form-control" placeholder="Nagibator" />
+                    </div>
+                    <div class=" editor-label form-group">
+                        <label asp-for="PasswordHash" class="float-left">Пароль</label>
+                        <input asp-for="PasswordHash" class="form-control" placeholder="Password" />
+                        
+                    </div>
+                </div>
+            </form>
+  
+        <div class="col-md-3">
+
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Libraly_test2_</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    
 </head>
 <body>
     <header>
@@ -20,8 +21,12 @@
                         <li class="nav-item ">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                       
+                        
                         <li class="nav-item ml-auto">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Регистрация</a>
+                            <a class="nav-item text-dark" asp-controller="User" asp-action="Entry">Вход</a>
+                            <a class="nav-item">\</a>
+                            <a class="nav-item text-dark" asp-area="" asp-controller="User" asp-action="Register">Регистрация</a>
                         </li>
                     </ul>
                 </div>
