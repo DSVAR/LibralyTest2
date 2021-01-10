@@ -7,26 +7,26 @@ using Libraly.Data.Context;
 
 namespace Libraly.Data.Repositories
 {
-   public class UserRepository : IUserActions<Users>
+   public class UserRepository : IActionBD<User>
     {
-    //    private Users User;
+        private User User;
         private readonly ApplicationContext App;
         public UserRepository(ApplicationContext context) 
         {
             App=context;
         }
 
-        public void AddUser(Users user)
+        public void Add(User user)
         {
             App.Users.Add(user);
         }
 
-        public void DeleteUser(Users user)
+        public void Delete(User user)
         {
             App.Users.Remove(user);
         }
 
-        public IEnumerable<Users> GetAllUsers()
+        public IEnumerable<User> GetAllDates()
         {
             return App.Users;
         }
@@ -36,12 +36,12 @@ namespace Libraly.Data.Repositories
             App.SaveChanges();
         }
 
-        public void UpdateUser(Users user)
+        public void Update(User user)
         {
             throw new NotImplementedException();
         }
 
-        public Users UserFind(string value)
+        public User Find(string value)
         {
             return App.Users.Find(value) ;
         }

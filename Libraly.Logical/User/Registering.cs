@@ -4,65 +4,74 @@ using System.Text;
 using Libraly.Data.Context;
 using Libraly.Data.Models;
 using Libraly.Data.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace Libraly.Logical.User
 {
     public class Registering
     {
      
-        private Users User;
+        private Data.Models.User User;
         private readonly UserRepository UR;
 
-        public Registering(UserRepository repo)
+
+        private readonly UserManager<Data.Models.User> UM;
+        public Registering(UserRepository repo, UserManager<Data.Models.User> _UM)
         {
             UR = repo;
+            UM = _UM;
         }
 
-        public bool Register(Users user)
+        public  bool Register(Data.Models.User user)
         {
-            try { 
-            UR.AddUser(user);
-            UR.SaveChanges();
-                return true;
-            }
-            catch {
-            return false;
-            }
+            
+           var result=  UM.CreateAsync(User);
+          
 
+           return true;
         }
 
         public bool CheckMail(string mail)
         {
-            var users = UR.GetAllUsers();
+            var users = UR.GetAllDates();
             foreach(var i in users)
             {
                 if (i.Email == mail)
                     User = i;
             }
 
-            
-            if (User.Email == null)
-                return false ;
 
+            if (User != null)
+            {
+                if (User.Email == null)
+                    return false;
+
+                else
+                    return true;
+            }
             else
-                return true;
+                return false;
         }
 
         public bool CheckNickname(string nickname)
         {
-            var users = UR.GetAllUsers();
+            var users = UR.GetAllDates();
             foreach (var i in users)
             {
                 if (i.NickName == nickname)
                     User = i;
             }
 
+            
+            if (User != null) { 
+                if (User.NickName== null )
+                    return false;
 
-            if (User.NickName == null)
-                return false;
-
+                else
+                    return true;
+            }
             else
-                return true;
+                return false;
 
         }
     }

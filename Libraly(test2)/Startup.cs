@@ -32,11 +32,19 @@ namespace Libraly_test2_
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options => 
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<UserRepository>();
             services.AddTransient<Registering>();
-            services.AddIdentity<Users, IdentityRole>().AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
+
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.SignIn.RequireConfirmedEmail = false;
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>();
+
             services.AddControllersWithViews();
         }
 
@@ -57,6 +65,8 @@ namespace Libraly_test2_
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Libraly.Logical.User;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Libraly_test2_.Controllers
 {
@@ -13,15 +15,18 @@ namespace Libraly_test2_.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly ApplicationContext AppContext;
-        private string PatternEmail = @"^[A-Za-z0-9.+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,4}$";
-        private string PatternPassword = @"[A-Za-z0-9]";
-        private readonly Registering Reg;
 
-        public UserController(ILogger<UserController> logger, ApplicationContext Context, Registering registering)
+//        private readonly Registering Reg;
+
+        private readonly UserManager<User> UM;
+        private readonly SignInManager<User> SIM;
+        public UserController(ILogger<UserController> logger, ApplicationContext Context, Registering registering,  UserManager<User> _UM, SignInManager<User> _SIM)
         {
             _logger = logger;
             AppContext = Context;
-            Reg = registering;
+         //   Reg = registering;
+            UM = _UM;
+            SIM = _SIM;
         }
 
 
@@ -31,51 +36,29 @@ namespace Libraly_test2_.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Users model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (string.IsNullOrEmpty(model.NickName)) { ModelState.AddModelError("NickName", "Строка никнейма пустая"); }
-            else
-            {
-                if(Reg.CheckNickname(model.NickName)) { ModelState.AddModelError("NickName", "Такой ник уже существует"); }
-            }
-
-            if (string.IsNullOrEmpty(model.FirstName)) { ModelState.AddModelError("FirstName", "Строка имени пустая"); }
-            if (string.IsNullOrEmpty(model.FullName)) { ModelState.AddModelError("FullName", "Строка Фамилии пустая"); }
-
-
-            if (string.IsNullOrEmpty(model.Email)) { ModelState.AddModelError("Email", "Строка почты пустая"); }
-            else
-            {
-                if (!Regex.IsMatch(model.Email, PatternEmail)) { ModelState.AddModelError("Email", "Не верный формат email"); }
-                else
-                 if (Reg.CheckMail(model.Email)) { ModelState.AddModelError("Email", "Такой почтовый ящик зарегистрирован"); }
-            }
-
-            if (string.IsNullOrEmpty(model.PasswordHash)) { ModelState.AddModelError("PasswordHash", "Строка пароля пустая"); }
-            else
-            {
-                if (Regex.IsMatch(model.PasswordHash, PatternPassword)) { /*ModelState.AddModelError("PasswordHash", "бум");*/ }
-                else { ModelState.AddModelError("PasswordHash", "пароль не совпадает с правилами"); }
-            }
-
-
             if (ModelState.IsValid)
             {
-                if (Reg.Register(model))
+                var user = new User { UserName = model.UserName, FullName = model.FullName, FirstName = model.FirstName, Email=model.Email};
+                var resulr = await UM.CreateAsync(user,model.Password);
+
+                if (resulr.Succeeded) 
                 {
-                   return RedirectToPage("/Home/Index");
+                    await SIM.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    return RedirectToPage("/User/Register");
+                else { 
+                    foreach (var error in resulr.Errors)
+                    {
+                        ModelState.AddModelError("ConfirmPassword", error.Description);
+                    }
                 }
-                
             }
-            else
                 return View(model);
         }
 
-        public IActionResult Entry(Users model)
+        public IActionResult Entry(User model)
         {
             return View(model);
         }
