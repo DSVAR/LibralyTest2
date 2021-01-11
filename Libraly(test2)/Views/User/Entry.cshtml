@@ -1,26 +1,37 @@
-﻿@model Libraly.Data.Models.User
+﻿@using Libraly_test2_.Models
+
+@{
+    ViewData["Title"] = "LoginIn";
+}
+
+@model LoginViewModel
 
 <div>
     <div class="container row">
         <div class="col-md-3">
 
         </div>
-        
-            <form class="col-md-6" method="post">
-                <div class="card-columns card col-xl-12 form-centre ">
-                    <div class="editor-label form-group">
-                        <span asp-validation-for="NickName" style="border-color:red; color:red "></span>
-                        <label asp-for="NickName" class="float-left">Ник</label>
-                        <input asp-for="NickName" class="form-control" placeholder="Nagibator" />
-                    </div>
-                    <div class=" editor-label form-group">
-                        <label asp-for="PasswordHash" class="float-left">Пароль</label>
-                        <input asp-for="PasswordHash" class="form-control" placeholder="Password" />
-                        
-                    </div>
+
+        <form class="col-md-6" method="post" asp-controller="User" asp-action="Entry">
+            <div class="card-columns card col-xl-12 form-centre ">
+                <div class="editor-label form-group">
+
+                    <label asp-for="UserName" class="float-left"></label>
+                    <input asp-for="UserName" class="form-control" placeholder="Nagibator" />
+                    <span asp-validation-for="UserName" style="border-color:red; color:red "></span>
                 </div>
-            </form>
-  
+                <div class=" editor-label form-group">
+                    <label asp-for="Password" class="float-left"></label>
+                    <input asp-for="Password" class="form-control" placeholder="Password" />
+                    <span asp-validation-for="Password" style="border-color:red;color:red"></span>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success btn-block" type="submit">Вход</button>
+                </div>
+
+            </div>
+        </form>
+
         <div class="col-md-3">
 
         </div>

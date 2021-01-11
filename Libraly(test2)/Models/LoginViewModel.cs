@@ -8,9 +8,17 @@ namespace Libraly_test2_.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "")]
-        string UserName { get; set; }
-        [Required(ErrorMessage = "")]
-        string Password { get; set; }
+        [Required(ErrorMessage = "Пустое поле")]
+        [Display(Name ="Ник")]
+        public string UserName { get; set; }
+
+
+        [Required(ErrorMessage = "Пустое поле")]
+        [Display(Name = "Пароль")]
+        public string Password { get; set; }
+        [Display(Name = "Запомнить меня?")]
+        public  bool RememberMe { get; set; }
+
+        public  string ReturnUrl { get; set; }
     }
 }

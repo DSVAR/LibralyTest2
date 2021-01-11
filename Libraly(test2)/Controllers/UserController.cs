@@ -16,20 +16,19 @@ namespace Libraly_test2_.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly ApplicationContext AppContext;
 
-//        private readonly Registering Reg;
 
         private readonly UserManager<User> UM;
         private readonly SignInManager<User> SIM;
-        public UserController(ILogger<UserController> logger, ApplicationContext Context, Registering registering,  UserManager<User> _UM, SignInManager<User> _SIM)
+
+        public UserController(ILogger<UserController> logger, ApplicationContext Context, UserManager<User> _UM, SignInManager<User> _SIM)
         {
             _logger = logger;
             AppContext = Context;
-         //   Reg = registering;
             UM = _UM;
             SIM = _SIM;
         }
 
-
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -58,9 +57,45 @@ namespace Libraly_test2_.Controllers
                 return View(model);
         }
 
-        public IActionResult Entry(User model)
+
+        [HttpGet]
+        public IActionResult Entry(string returnUrl=null)
         {
+            return View(new LoginViewModel { ReturnUrl=returnUrl});
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Entry(LoginViewModel model)
+        {
+            var result = await SIM.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+            
+            if(result.Succeeded)
+            {
+                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                {
+                    return Redirect(model.ReturnUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("Password", "Неправильный логин или пароль.");
+            }
             return View(model);
+        }
+
+     
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await SIM.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
