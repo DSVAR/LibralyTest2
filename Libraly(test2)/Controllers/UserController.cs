@@ -97,6 +97,13 @@ namespace Libraly_test2_.Controllers
             await SIM.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+         
+        [HttpGet]
+        public IActionResult Account()
+        {
+            return RedirectToAction();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
