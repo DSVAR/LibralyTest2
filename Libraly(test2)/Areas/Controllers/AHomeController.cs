@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Libraly_test2_.Areas.Controllers
 {
-    public class HomeController : Controller
+    public class AHomeController : Controller
     {
         public IActionResult Index()
         {
