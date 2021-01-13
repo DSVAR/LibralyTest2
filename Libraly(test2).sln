@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libraly(test2)", "Libraly(test2)\Libraly(test2).csproj", "{5A9B7AF5-B2E5-40B3-A92E-E7D0CC61FC9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraly.Logical", "Libraly.Logical\Libraly.Logical.csproj", "{F4343512-077E-480F-B1CB-4D58414BCDD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libraly.Logical", "Libraly.Logical\Libraly.Logical.csproj", "{F4343512-077E-480F-B1CB-4D58414BCDD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraly.Data", "Libraly.Data\Libraly.Data.csproj", "{D45CB60C-F58E-4E59-8CC6-CF7D9AC7F862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libraly.Data", "Libraly.Data\Libraly.Data.csproj", "{D45CB60C-F58E-4E59-8CC6-CF7D9AC7F862}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

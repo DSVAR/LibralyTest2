@@ -73,6 +73,11 @@ namespace Libraly_test2_
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                name:"Account",
+                    pattern: "{area:exists}/{controller=Home}/{Action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

@@ -101,7 +101,7 @@ namespace Libraly_test2_.Controllers
         [HttpGet]
         public IActionResult Account()
         {
-            return RedirectToAction();
+            return RedirectToAction("Account/");
         }
 
 
