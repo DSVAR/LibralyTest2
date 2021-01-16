@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Libraly_test2_.Areas.Account
 {
-    public class AccountController : Controller
+    public class ACController : Controller
     {
 
         // GET: AccountController

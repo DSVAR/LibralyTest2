@@ -75,7 +75,7 @@ namespace Libraly_test2_
                 endpoints.MapAreaControllerRoute(
                 name:"Account_area",
                 areaName:"Account",
-                    pattern: "Account/{controller=Home}/{Action=Index}/{id?}"
+                    pattern: "Account/{controller=AC}/{action=Index}/{id?}"
 
                 );
 
