@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Libraly.Data.Interfaces
 {
@@ -9,7 +10,7 @@ namespace Libraly.Data.Interfaces
     {
         //ST-SomeThing
         public IEnumerable<T> GetAllDates();
-        public T Find(string value);
+        public Task<T> Find(string Id);
         public void Add(T ST);
         public void Delete(T ST);
         public void Update(T ST);

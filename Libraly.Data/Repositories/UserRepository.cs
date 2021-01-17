@@ -4,6 +4,8 @@ using System.Text;
 using Libraly.Data.Interfaces;
 using Libraly.Data.Models;
 using Libraly.Data.Context;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Libraly.Data.Repositories
 {
@@ -11,9 +13,11 @@ namespace Libraly.Data.Repositories
     {
         private User User;
         private readonly ApplicationContext App;
-        public UserRepository(ApplicationContext context) 
+        private readonly UserManager<User> UM;
+        public UserRepository(ApplicationContext context,UserManager<User> _UM) 
         {
             App=context;
+            UM = _UM;
         }
 
         public void Add(User user)
@@ -41,9 +45,9 @@ namespace Libraly.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public User Find(string value)
+        public async Task<User> Find(string Id)
         {
-            return App.Users.Find(value) ;
+            return await UM.FindByIdAsync(Id);
         }
     }
 }
