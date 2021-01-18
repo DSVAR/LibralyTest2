@@ -44,7 +44,7 @@ namespace Libraly_test2_.Areas.Account
                     {
                         foreach(var errors in result.Errors)
                         {
-                            ModelState.AddModelError("NewPassword", errors.Description);
+                            ModelState.AddModelError("OldPassword", errors.Description);
                         }
                     }
                 }
