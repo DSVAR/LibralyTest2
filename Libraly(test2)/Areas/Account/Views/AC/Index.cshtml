@@ -1,39 +1,43 @@
-﻿
+﻿@model Libraly_test2_.Models.ChangePasswordViewsModel
+@using Libraly_test2_.Areas.Account.View.AC
+@using Libraly_test2_.Areas.Account
 @{
     Layout = "_ALayout";
-
+    ViewData["ActivePage"] = ManageNavPages.Index;
 }
-@model Libraly_test2_.Models.ChangePasswordViewsModel
 
 
-<h3>Смена пароля</h3>
-<hr />
-<form method="post">
+<form method="post" asp-area="Account" asp-controller="AC" asp-action="Index">
+    <h3>Смена пароля</h3>
+    <hr />
+
     <div class="row card-columns">
 
         <div class="editor-label form-group col">
 
             <label class="float-left">Старый пароль</label>
             <input asp-for="OldPassword" class="form-control" form-control" placeholder="Nagibator" />
-
+            <span asp-validation-for="OldPassword" style="border-color:red; color:red " ></span>
 
             <label class="float-left">Новый пароль</label>
-            <input asp-for="RepeatOldPassword" class="form-control" placeholder="Nagibator" />
-            <span asp-validation-for="RepeatOldPassword" style="border-color:red; color:red " />
+            <input asp-for="NewPassword" class="form-control" placeholder="Nagibator" />
+            <span asp-validation-for="NewPassword" style="border-color:red; color:red "></span>
         </div>
 
         <div class="editor-label form-group col">
 
             <label class="float-left">Повторите старый пароль</label>
-            <input asp-for="NewPassword" class="form-control" placeholder="Nagibator1" />
-            <span asp-validation-for="NewPassword" style="border-color:red; color:red " />
+            <input asp-for="RepeatOldPassword" class="form-control" placeholder="Nagibator1" />
+            <span asp-validation-for="RepeatOldPassword" style="border-color:red; color:red " ></span>
 
         </div>
 
     </div>
 
-    <div class="form-group">
-        <button asp-action="ChangePassword" asp-controller="AC" type="button" class="btn btn-primary">Сменить</button>
-    </div>
-    <span asp-validation-for="OldPassword" style="border-color:red; color:red " />
+
+ 
+        <button type="submit" class="btn btn-primary">Сменить</button>
+   
+    
 </form>
+@*asp-action="ChangePassword" asp-controller="AC"*@

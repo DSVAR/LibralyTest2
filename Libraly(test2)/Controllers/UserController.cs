@@ -95,7 +95,8 @@ namespace Libraly_test2_.Controllers
         public async Task<IActionResult> Logout()
         {
             await SIM.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+           
+            return Redirect("~/Home/Index");
         }
          
         [HttpGet]
