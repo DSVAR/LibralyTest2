@@ -1,11 +1,10 @@
 ﻿using Libraly.Data.Context;
-using Libraly.Data.Models;
+using Libraly.Data.Entities;
 using Libraly_test2_.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using Libraly.Logical.User;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
@@ -17,15 +16,15 @@ namespace Libraly_test2_.Controllers
         private readonly ApplicationContext AppContext;
 
 
-        private readonly UserManager<User> UM;
-        private readonly SignInManager<User> SIM;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserController(ILogger<UserController> logger, ApplicationContext Context, UserManager<User> _UM, SignInManager<User> _SIM)
+        public UserController(ILogger<UserController> logger, ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _logger = logger;
-            AppContext = Context;
-            UM = _UM;
-            SIM = _SIM;
+            AppContext = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -40,11 +39,11 @@ namespace Libraly_test2_.Controllers
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = model.UserName, FullName = model.FullName, FirstName = model.FirstName, Email=model.Email};
-                var resulr = await UM.CreateAsync(user,model.Password);
+                var resulr = await _userManager.CreateAsync(user,model.Password);
 
                 if (resulr.Succeeded) 
                 {
-                    await SIM.SignInAsync(user, false);
+                    await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else { 
@@ -69,7 +68,7 @@ namespace Libraly_test2_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Entry(LoginViewModel model)
         {
-            var result = await SIM.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
             
             if(result.Succeeded)
             {
@@ -94,7 +93,7 @@ namespace Libraly_test2_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await SIM.SignOutAsync();
+            await _signInManager.SignOutAsync();
            
             return Redirect("~/Home/Index");
         }

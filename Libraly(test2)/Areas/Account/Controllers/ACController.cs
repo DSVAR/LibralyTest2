@@ -5,22 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Libraly_test2_.Models;
-using Libraly.Data.Models;
+using Libraly.Data.Entities;
 using Microsoft.AspNetCore.Identity;
-using Libraly.Data.Repositories;
 
 namespace Libraly_test2_.Areas.Account
 {
     public class ACController : Controller
     {
 
-        private readonly UserRepository UR;
-        private readonly UserManager<User> UM;
         
-       public ACController(UserRepository _UR, UserManager<User> _UM)
+        private readonly UserManager<User> _userManager;
+        
+       public ACController( UserManager<User> userManager)
         {
-            UR = _UR;
-            UM = _UM;
+            _userManager = userManager;
         }
         // GET: AccountController
         public ActionResult Index()
@@ -32,10 +30,10 @@ namespace Libraly_test2_.Areas.Account
         public async Task<IActionResult> Index(ChangePasswordViewsModel model)
         {
             if (ModelState.IsValid) { 
-                var user = await UM.GetUserAsync(User);
+                var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    IdentityResult result = await UM.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");

@@ -43,7 +43,8 @@ namespace Libraly.Data.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
-                    NickName = table.Column<string>(nullable: true)
+                    NickName = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

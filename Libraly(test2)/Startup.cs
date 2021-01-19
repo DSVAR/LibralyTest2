@@ -8,14 +8,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Libraly.Logical;
-using Libraly.Data.Models;
+using Libraly.Data.Entities;
 using Libraly.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Libraly.Data.Repositories;
-using Libraly.Data.Interfaces;
-using Libraly.Logical.User;
 using Libraly_test2_.Areas.Account;
 
 namespace Libraly_test2_
@@ -35,9 +31,6 @@ namespace Libraly_test2_
             services.AddDbContext<ApplicationContext>(options => 
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<UserRepository>();
-            services.AddTransient<Registering>();
-            
 
             services.AddIdentity<User, IdentityRole>(opt =>
             {
