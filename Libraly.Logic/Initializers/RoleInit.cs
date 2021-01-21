@@ -1,4 +1,5 @@
 ﻿using Libraly.Data.Entities;
+using Libraly.Logic.Models.UserDTO;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Libraly.Logic.Initializers
 {
     public class RoleInit
     {
-        public static async Task InitAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task InitAsync(UserManager<UserModelView> userManager, RoleManager<IdentityRole> roleManager)
         {
             const string admin = "Администратор";
             string adminEmail = "admin@gmail.com";
@@ -34,7 +35,8 @@ namespace Libraly.Logic.Initializers
 
             if(await userManager.FindByEmailAsync(adminEmail) == null)
             {
-                var adminNew = new User { Email = adminEmail, UserName = adminEmail };
+                var adminNew = new UserModelView { Email = adminEmail, UserName = adminEmail };
+                
                 var result =await userManager.CreateAsync(adminNew, passwordAdm);
                 if (result.Succeeded) 
                     await userManager.AddToRoleAsync(adminNew, admin);
@@ -43,7 +45,7 @@ namespace Libraly.Logic.Initializers
 
             if (await userManager.FindByEmailAsync(userEmail) == null)
             {
-                var userNew = new User { Email = userEmail, UserName = userEmail };
+                var userNew = new UserModelView { Email = userEmail, UserName = userEmail };
                 var result = await userManager.CreateAsync(userNew, userPassword);
                 if (result.Succeeded)
                     await userManager.AddToRoleAsync(userNew, user);
@@ -52,7 +54,7 @@ namespace Libraly.Logic.Initializers
 
             if (await userManager.FindByEmailAsync(libEmail) == null)
             {
-                var libriantNew = new User { Email = libEmail, UserName = libEmail };
+                var libriantNew = new UserModelView { Email = libEmail, UserName = libEmail };
                 var result = await userManager.CreateAsync(libriantNew, librPassword);
                 if (result.Succeeded)
                     await userManager.AddToRoleAsync(libriantNew, librarian);

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Libraly.Logic.Models.UserDTO;
 using Microsoft.Extensions.Logging;
 
 namespace Libraly_test2_
@@ -23,9 +24,9 @@ namespace Libraly_test2_
                 var services = scope.ServiceProvider;
                 try
                 {
-  //                  var userManager = services.GetRequiredService<UserManager<User>>();
+                    var userManager = services.GetRequiredService<UserManager<UserModelView>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-//                    await RoleInit.InitAsync(userManager, roleManager);
+                    await RoleInit.InitAsync(userManager, roleManager);
                 }
                 catch(Exception ex)
                 {
