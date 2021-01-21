@@ -7,6 +7,7 @@ namespace Libraly.Data.Entities
 {
     public class Book
     {
+        public long ID { get; set; }
         [Required(ErrorMessage = "Не указан год")]
         public int YearOfBook { get; set; }
 

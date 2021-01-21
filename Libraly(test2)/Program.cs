@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Libraly.Data.Entities;
 using Libraly.Logic.Initializers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -24,9 +23,9 @@ namespace Libraly_test2_
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var userManager = services.GetRequiredService<UserManager<User>>();
+  //                  var userManager = services.GetRequiredService<UserManager<User>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    await RoleInit.InitAsync(userManager, roleManager);
+//                    await RoleInit.InitAsync(userManager, roleManager);
                 }
                 catch(Exception ex)
                 {

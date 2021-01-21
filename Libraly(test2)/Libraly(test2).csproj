@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Libraly.Data\Libraly.Data.csproj" />
     <ProjectReference Include="..\Libraly.Logic\Libraly.Logic.csproj" />
   </ItemGroup>
 
