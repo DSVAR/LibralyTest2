@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Libraly.Data\Libraly.Data.csproj" />
+    <ProjectReference Include="..\Libraly.Logic\Libraly.Logic.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

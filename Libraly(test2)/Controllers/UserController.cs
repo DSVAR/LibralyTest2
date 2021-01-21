@@ -18,6 +18,7 @@ namespace Libraly_test2_.Controllers
 
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+      
 
         public UserController(ILogger<UserController> logger, ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
@@ -25,6 +26,7 @@ namespace Libraly_test2_.Controllers
             AppContext = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            
         }
 
         [HttpGet]
@@ -44,6 +46,7 @@ namespace Libraly_test2_.Controllers
                 if (resulr.Succeeded) 
                 {
                     await _signInManager.SignInAsync(user, false);
+                    await _userManager.AddToRoleAsync(user, "Пользователь");
                     return RedirectToAction("Index", "Home");
                 }
                 else { 
