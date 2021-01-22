@@ -6,25 +6,25 @@ using System.Text;
 
 namespace Libraly.Data.Repositories
 {
-    class UnitOfWorkRepository : IUnitOfWork
+    public class UnitOfWorkRepository : IUnitOfWork
     {
-        public ApplicationContext Context { get;  }
+        public ApplicationContext context { get;  }
 
 
-        public UnitOfWorkRepository(ApplicationContext context)
+        public UnitOfWorkRepository(ApplicationContext Context)
         {
-            Context = context;
+            context = Context;
         }
 
 
         public void Dispose()
         {
-            Context.Dispose();
+            context.Dispose();
         }
 
         public void Save()
         {
-            Context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

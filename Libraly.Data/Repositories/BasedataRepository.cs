@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Libraly.Data.Services
+namespace Libraly.Data.Repositories
 {
-    class BasedataRepository<T> : IBasedata<T> where T : class
+    public class BasedataRepository<T> : IBasedata<T> where T : class
     {
         private readonly ApplicationContext _context;
         internal DbSet<T> dbSet;

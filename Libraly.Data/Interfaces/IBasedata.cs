@@ -13,6 +13,5 @@ namespace Libraly.Data.Interfaces
         void Update(T obj);
         void Delete(T obj);
 
-        void Save();
     }
 }

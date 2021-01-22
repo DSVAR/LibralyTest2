@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Libraly.Data.Interfaces
 {
-    public interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork
     {
-        ApplicationContext Context{ get; }
-
+        ApplicationContext context { get; }
         void Save();
     }
 }

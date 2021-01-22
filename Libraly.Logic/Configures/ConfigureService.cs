@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Libraly.Data.Entities;
+using AutoMapper;
 
 namespace Libraly.Logic.Configures
 {
@@ -26,6 +27,8 @@ namespace Libraly.Logic.Configures
             })
                .AddRoles<IdentityRole>()
                .AddEntityFrameworkStores<ApplicationContext>();
+
+            services.AddAutoMapper(typeof(ConfigurationOfMapping));
 
             return services;
         }
