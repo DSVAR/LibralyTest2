@@ -2,9 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Identity.Core;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Libraly.Data.Entities;
 
 namespace Libraly.Logic.Configures
 {
@@ -14,6 +17,16 @@ namespace Libraly.Logic.Configures
         {
             services.AddDbContext<ApplicationContext>
                 (options => options.UseNpgsql(configuration.GetConnectionString("Default")));
+
+
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.SignIn.RequireConfirmedEmail = false;
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+               .AddRoles<IdentityRole>()
+               .AddEntityFrameworkStores<ApplicationContext>();
+
             return services;
         }
     }
