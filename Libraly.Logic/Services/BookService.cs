@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Libraly.Data.Entities;
 using Libraly.Data.Interfaces;
 using Libraly.Data.Repositories;
@@ -39,12 +40,15 @@ namespace Libraly.Logic.Services
 
         public IQueryable<BookViewModel> Read()
         {
-            throw new NotImplementedException();
+            var item = _mapper.Map<List<BookViewModel>>(_repository.Read().ProjectTo<BookViewModel>(_mapper.ConfigurationProvider)).AsQueryable();
+            var items = _repository.Read().AsQueryable();
+            return item;
         }
 
         public void Update(BookViewModel obj)
         {
-            throw new NotImplementedException();
+            _repository.Update(_mapper.Map<Book>(obj));
+            _unitOfWork.Save();
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,31 +18,29 @@ namespace Libraly.Data.Repositories
         public BasedataRepository(ApplicationContext context)
         {
             _context = context;
+            dbSet = context.Set<T>();
         }
         public void Create(T obj)
         {
-            _context.Add(obj);
+            dbSet.Add(obj);
         }
 
         public void Delete(T obj)
         {
-            _context.Remove(obj);
+            dbSet.Remove(obj);
         }
 
-        public IEnumerable<T> Read()
+        public IQueryable<T> Read()
         {
-            var list = dbSet;
-            return list;
+            var items= dbSet.AsQueryable<T>();
+            return items;
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
+   
 
         public void Update(T obj)
         {
-            throw new NotImplementedException();
+            dbSet.Update(obj);
         }
     }
 }
