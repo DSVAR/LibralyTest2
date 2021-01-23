@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Libraly.Data.Entities;
 using Libraly.Logic.Interfaces;
+using Libraly_test2_.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,9 @@ namespace Libraly.Logic.Services
             throw new NotImplementedException();
         }
 
-        public async Task Creat()
+        public async Task<IdentityResult> Creat(RegisterViewModel model)
         {
-           // return _userManager.CreateAsync()
+            return await _userManager.CreateAsync(_mapper.Map<User>(model), model.Password);
         }
 
         public async Task Delete()
