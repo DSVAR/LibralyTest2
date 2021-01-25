@@ -2,6 +2,7 @@
 using Libraly.Data.Entities;
 using Libraly.Logic.Interfaces;
 using Libraly.Logic.Models.UserDTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,14 @@ namespace Libraly.Logic.Services
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
+        IHttpContextAccessor _httpContext;
 
-        public UserService(UserManager<User> userManager,SignInManager<User> signInManager,IMapper mapper)
+        public UserService(UserManager<User> userManager,SignInManager<User> signInManager,IMapper mapper, IHttpContextAccessor httpContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _httpContext = httpContext;
         }
 
 
@@ -53,6 +56,11 @@ namespace Libraly.Logic.Services
         public async Task AddRole(User user, string name)
         {
             await _userManager.AddToRoleAsync(user, name);
+        }
+
+        public async Task<User> GetUser()
+        {
+            return await _userManager.GetUserAsync(_httpContext.HttpContext.User);
         }
     }
 }

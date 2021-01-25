@@ -1,25 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Libraly_test2_.Models;
 using Libraly.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Libraly.Logic.Models.UserDTO;
+using Libraly.Logic.Services;
+using AutoMapper;
 
 namespace Libraly_test2_.Areas.Account
 {
     public class ACController : Controller
     {
-
-
+        private readonly IMapper _mapper;
+        private readonly UserService _userService;
         private readonly UserManager<User> _userManager;
 
-        public ACController(UserManager<User> userManager)
+        public ACController(UserManager<User> userManager, UserService userService,IMapper mapper)
         {
             _userManager = userManager;
+            _userService = userService;
+            _mapper = mapper;
         }
         // GET: AccountController
         public ActionResult Index()
@@ -32,10 +31,13 @@ namespace Libraly_test2_.Areas.Account
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User);
+
+                var user = await _userService.GetUser();
+
                 if (user != null)
                 {
                     IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    var res = await _userService.ChangePassword(model);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");
