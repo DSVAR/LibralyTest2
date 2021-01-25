@@ -1,20 +1,36 @@
 ﻿using AutoMapper;
 using Libraly.Data.Entities;
 using Libraly.Logic.Models.BookDTO;
-using Libraly_test2_.Models;
+using Libraly.Logic.Models.UserDTO;
+
 
 namespace Libraly.Logic.Configures
 {
-    class ConfigurationOfMapping:Profile
+    public class ConfigurationOfMapping:Profile
     {
         public ConfigurationOfMapping()
         {
+            //var config = new MapperConfiguration(cfg =>{
+            //    cfg.CreateMap<LoginViewModel, User>();
+            ////    cfg.AddProfile<User>();
+            //});
             //книги
-            CreateMap<Book, BookViewModel>();
+            CreateMap<BookViewModel, Book>();
+            CreateMap<Book,BookViewModel>();
             //пользователь
-            CreateMap<User, LoginViewModel>();
-            CreateMap<User, RegisterViewModel>();
-            CreateMap<User, ChangePasswordViewsModel>();
+
+            CreateMap<LoginViewModel, UserModelView>();
+            CreateMap<UserModelView, LoginViewModel>();
+
+            CreateMap<RegisterViewModel, UserModelView>();
+            CreateMap<UserModelView, RegisterViewModel>();
+
+            CreateMap<UserModelView, ChangePasswordViewsModel>();
+            CreateMap<ChangePasswordViewsModel, UserModelView>();
+
         }
+
+
+
     }
 }

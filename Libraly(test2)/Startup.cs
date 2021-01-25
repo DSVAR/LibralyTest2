@@ -13,6 +13,9 @@ using Libraly.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Libraly_test2_.Areas.Account;
+using Libraly.Logic.Services;
+using Libraly.Logic.Interfaces;
+using Libraly.Logic.Configures;
 
 namespace Libraly_test2_
 {
@@ -28,18 +31,22 @@ namespace Libraly_test2_
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options => 
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationContext>(options => 
+            //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddIdentity<User, IdentityRole>(opt =>
-            {
-                opt.SignIn.RequireConfirmedEmail = false;
-                opt.Password.RequireNonAlphanumeric = false;
-            })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+            //services.AddIdentity<User, IdentityRole>(opt =>
+            //{
+            //    opt.SignIn.RequireConfirmedEmail = false;
+            //    opt.Password.RequireNonAlphanumeric = false;
+            //})
+            //    .AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationContext>();
 
+
+            services.AddTransient<IUserService, UserService>();
+            ConfigureService.InitServices(services, Configuration);
+            services.AddTransient<ConfigurationOfMapping>();
             services.AddControllersWithViews();
         }
 

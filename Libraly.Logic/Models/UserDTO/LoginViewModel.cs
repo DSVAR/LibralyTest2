@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Libraly_test2_.Models
+namespace Libraly.Logic.Models.UserDTO
 {
     public class LoginViewModel
     {

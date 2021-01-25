@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using Libraly.Data.Entities;
 using AutoMapper;
+using Libraly.Logic.Services;
 
 namespace Libraly.Logic.Configures
 {
@@ -17,7 +18,7 @@ namespace Libraly.Logic.Configures
         public static IServiceCollection InitServices(IServiceCollection services,IConfiguration configuration)
         {
             services.AddDbContext<ApplicationContext>
-                (options => options.UseNpgsql(configuration.GetConnectionString("Default")));
+                (options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddIdentity<User, IdentityRole>(opt =>
@@ -29,6 +30,8 @@ namespace Libraly.Logic.Configures
                .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddAutoMapper(typeof(ConfigurationOfMapping));
+
+           // services.AddTransient(typeof(IUserservice), typeof(UserService));
 
             return services;
         }

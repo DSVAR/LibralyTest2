@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Libraly.Data.Entities;
 using Libraly.Logic.Interfaces;
-using Libraly_test2_.Models;
+using Libraly.Logic.Models.UserDTO;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,9 +12,9 @@ namespace Libraly.Logic.Services
 {
     public class UserService : IUserService
     {
-        UserManager<User> _userManager;
-        SignInManager<User> _signInManager;
-        IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IMapper _mapper;
 
         public UserService(UserManager<User> userManager,SignInManager<User> signInManager,IMapper mapper)
         {
@@ -24,29 +24,35 @@ namespace Libraly.Logic.Services
         }
 
 
-        public async Task ChangePassword()
+        public async Task<IdentityResult> ChangePassword(ChangePasswordViewsModel change)
         {
-            throw new NotImplementedException();
+            return await _userManager.ChangePasswordAsync(_mapper.Map<User>(change), change.OldPassword, change.NewPassword);
         }
 
-        public async Task<IdentityResult> Creat(RegisterViewModel model)
+        public async Task<IdentityResult> Creat(User user)
         {
-            return await _userManager.CreateAsync(_mapper.Map<User>(model), model.Password);
+            return await _userManager.CreateAsync(user, user.Password);
         }
 
-        public async Task Delete()
+        public async Task<IdentityResult> Delete(User user)
         {
-            throw new NotImplementedException();
+            return await _userManager.DeleteAsync(user);
         }
 
         public async Task LogOut()
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync();
+        }
+        public async Task<SignInResult> LogIn(User user, bool b)
+        {
+                
+                return await _signInManager.PasswordSignInAsync(user.UserName, user.Password, false, false);
+           
         }
 
-        public async Task Register()
+        public async Task AddRole(User user, string name)
         {
-            throw new NotImplementedException();
+            await _userManager.AddToRoleAsync(user, name);
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Libraly.Logic.Models.UserDTO;
+using Libraly.Logic.Interfaces;
+using AutoMapper;
 
 namespace Libraly_test2_.Controllers
 {
@@ -15,18 +18,20 @@ namespace Libraly_test2_.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly ApplicationContext AppContext;
 
-
+        private readonly IMapper _mapper;
+        private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
 
-        public UserController(ILogger<UserController> logger, ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(ILogger<UserController> logger, ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager, IUserService userService, IMapper mapper)
         {
             _logger = logger;
             AppContext = context;
             _userManager = userManager;
             _signInManager = signInManager;
-
+            _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -40,18 +45,22 @@ namespace Libraly_test2_.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.UserName, FullName = model.FullName, FirstName = model.FirstName, Email = model.Email };
-                var resulr = await _userManager.CreateAsync(user, model.Password);
+                //var user = new User { UserName = model.UserName, FullName = model.FullName, FirstName = model.FirstName, Email = model.Email };
+                //var resulr = await _userManager.CreateAsync(user, model.Password);
+                var user = _mapper.Map<UserModelView>(model);
+                var result = await _userService.Creat(user);
 
-                if (resulr.Succeeded)
+                if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
-                    await _userManager.AddToRoleAsync(user, "Пользователь");
+                    await _userService.LogIn(user, false);
+                   // await _signInManager.SignInAsync(user, false);
+                   // await _userManager.AddToRoleAsync(user, "Пользователь");
+                    await _userService.AddRole(user, "Пользователь");
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach (var error in resulr.Errors)
+                    foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("ConfirmPassword", error.Description);
                     }
@@ -72,24 +81,31 @@ namespace Libraly_test2_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Entry(LoginViewModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                //  var sw = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+                var user = _mapper.Map<UserModelView>(model);
+                var result = await _userService.LogIn(user, false);
+
+                if (result.Succeeded)
                 {
-                    return Redirect(model.ReturnUrl);
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError("Password", "Неправильный логин или пароль.");
                 }
+
+
             }
-            else
-            {
-                ModelState.AddModelError("Password", "Неправильный логин или пароль.");
-            }
-            return View(model);
+            return View();
         }
 
 
@@ -97,7 +113,7 @@ namespace Libraly_test2_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _userService.LogOut();
 
             return Redirect("~/Home/Index");
         }
