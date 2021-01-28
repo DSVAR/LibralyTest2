@@ -44,7 +44,8 @@ namespace Libraly_test2_
             //    .AddEntityFrameworkStores<ApplicationContext>();
 
 
-            services.AddTransient<IUserService, UserService>();
+            //services.AddTransient<IUserService, UserService>();
+
             ConfigureService.InitServices(services, Configuration);
             services.AddTransient<ConfigurationOfMapping>();
             services.AddControllersWithViews();

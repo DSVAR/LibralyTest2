@@ -27,9 +27,9 @@ namespace Libraly.Logic.Services
         }
 
 
-        public async Task<IdentityResult> ChangePassword(ChangePasswordViewsModel change)
+        public async Task<IdentityResult> ChangePassword(User user,ChangePasswordViewsModel change)
         {
-            return await _userManager.ChangePasswordAsync(_mapper.Map<User>(change), change.OldPassword, change.NewPassword);
+            return await _userManager.ChangePasswordAsync(user, change.OldPassword, change.NewPassword);
         }
 
         public async Task<IdentityResult> Creat(User user)

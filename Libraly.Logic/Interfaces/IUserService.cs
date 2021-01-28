@@ -15,7 +15,7 @@ namespace Libraly.Logic.Interfaces
         Task<User> GetUser();
         Task<SignInResult> LogIn(User user, bool b);
         Task LogOut();
-        Task<IdentityResult> ChangePassword(ChangePasswordViewsModel change);
+        Task<IdentityResult> ChangePassword(User user,ChangePasswordViewsModel change);
         Task<IdentityResult> Delete(User user);
         //Действия с ролями
         Task AddRole(User user,string name);
