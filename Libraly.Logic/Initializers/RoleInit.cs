@@ -1,4 +1,5 @@
 ﻿using Libraly.Data.Entities;
+using Libraly.Logic.Interfaces;
 using Libraly.Logic.Models.UserDTO;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -12,7 +13,7 @@ namespace Libraly.Logic.Initializers
     {
 
         // сделать все через сервисы!!!!!
-        public static async Task InitAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task InitAsync(IUserService _userService)
         {
             const string admin = "Администратор";
             string adminEmail = "admin@gmail.com";
@@ -27,40 +28,50 @@ namespace Libraly.Logic.Initializers
             string userPassword = "Userjoke1";
             //Пользователь, обыкновеный
 
-            if (await roleManager.FindByNameAsync(admin)==null)
-            { await roleManager.CreateAsync(new IdentityRole(admin)); }
-            if (await roleManager.FindByNameAsync(librarian) == null)
-            { await roleManager.CreateAsync(new IdentityRole(librarian)); }
-            if (await roleManager.FindByNameAsync(user) == null)
-            { await roleManager.CreateAsync(new IdentityRole(user)); }
+            //if (await roleManager.FindByNameAsync(admin)==null)
+            //{ await roleManager.CreateAsync(new IdentityRole(admin)); }
+            //if (await roleManager.FindByNameAsync(librarian) == null)
+            //{ await roleManager.CreateAsync(new IdentityRole(librarian)); }
+            //if (await roleManager.FindByNameAsync(user) == null)
+            //{ await roleManager.CreateAsync(new IdentityRole(user)); }
+
+
+            if(await _userService.FindRoleName(admin) == null) 
+            { await _userService.AddRole(admin); }
+
+            if (await _userService.FindRoleName(librarian) == null)
+            { await _userService.AddRole(librarian); }
+
+            if (await _userService.FindRoleName(user) == null)
+            { await _userService.AddRole(user); }
             //добавление ролей
 
-            if(await userManager.FindByEmailAsync(adminEmail) == null)
-            {
-                var adminNew = new UserModelView { Email = adminEmail, UserName = adminEmail };
-                
-                var result =await userManager.CreateAsync(adminNew, passwordAdm);
+            if (await _userService.FindUser(adminEmail) == null)
+            {   var adminNew = new UserModelView { Email = adminEmail, UserName = adminEmail,Password=passwordAdm };
+                var result =await _userService.Creat(adminNew);
                 if (result.Succeeded) 
-                    await userManager.AddToRoleAsync(adminNew, admin);
+                    await _userService.AddToRole(adminNew, admin);
             }
 
-
-            if (await userManager.FindByEmailAsync(userEmail) == null)
+            if (await _userService.FindUser(userEmail) == null)
             {
-                var userNew = new UserModelView { Email = userEmail, UserName = userEmail };
-                var result = await userManager.CreateAsync(userNew, userPassword);
+                var userNew = new UserModelView { Email = userEmail, UserName = userEmail, Password = userPassword };
+                var result = await _userService.Creat(userNew);
                 if (result.Succeeded)
-                    await userManager.AddToRoleAsync(userNew, user);
+                    await _userService.AddToRole(userNew, user);
             }
 
 
-            if (await userManager.FindByEmailAsync(libEmail) == null)
+            if (await _userService.FindUser(libEmail) == null)
             {
-                var libriantNew = new UserModelView { Email = libEmail, UserName = libEmail };
-                var result = await userManager.CreateAsync(libriantNew, librPassword);
+                var libriantNew = new UserModelView { Email = libEmail, UserName = libEmail, Password = librPassword};
+                var result = await _userService.Creat(libriantNew);
                 if (result.Succeeded)
-                    await userManager.AddToRoleAsync(libriantNew, librarian);
+                    await _userService.AddToRole(libriantNew, librarian);
             }
+
+
+
 
         }
 

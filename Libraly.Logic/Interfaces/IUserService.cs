@@ -19,5 +19,11 @@ namespace Libraly.Logic.Interfaces
         Task<IdentityResult> Delete(User user);
         //Действия с ролями
         Task AddRole(User user,string name);
+
+        Task<User> FindUser(string email);
+        Task<IdentityRole> FindRoleName(string name);
+        Task AddRole(string name);
+        Task AddToRole(User user, string role);
+
     }
 }

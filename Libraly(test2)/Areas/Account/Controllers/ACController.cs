@@ -13,11 +13,11 @@ namespace Libraly_test2_.Areas.Account
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly UserManager<User> _userManager;
+        //private readonly UserManager<User> _userManager;
 
         public ACController(UserManager<User> userManager, IUserService userService,IMapper mapper)
         {
-            _userManager = userManager;
+         //   _userManager = userManager;
             _userService = userService;
             _mapper = mapper;
         }

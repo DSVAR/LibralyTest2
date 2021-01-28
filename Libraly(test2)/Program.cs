@@ -12,6 +12,8 @@ using Libraly.Logic.Models.UserDTO;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Libraly.Data.Entities;
+using Libraly.Logic.Interfaces;
+using Libraly.Logic.Services;
 
 namespace Libraly_test2_
 {
@@ -30,7 +32,8 @@ namespace Libraly_test2_
                 {
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    await RoleInit.InitAsync(userManager, roleManager);
+                    var userService = services.GetRequiredService<IUserService>();
+                    await RoleInit.InitAsync(userService);
                 }
                 catch(Exception ex)
                 {

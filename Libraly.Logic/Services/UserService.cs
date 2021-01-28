@@ -15,15 +15,17 @@ namespace Libraly.Logic.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
         IHttpContextAccessor _httpContext;
 
-        public UserService(UserManager<User> userManager,SignInManager<User> signInManager,IMapper mapper, IHttpContextAccessor httpContext)
+        public UserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager ,SignInManager<User> signInManager,IMapper mapper, IHttpContextAccessor httpContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _httpContext = httpContext;
+            _roleManager = roleManager;
         }
 
 
@@ -61,6 +63,26 @@ namespace Libraly.Logic.Services
         public async Task<User> GetUser()
         {
             return await _userManager.GetUserAsync(_httpContext.HttpContext.User);
+        }
+
+        public async Task<IdentityRole> FindRoleName(string name)
+        {
+            return await _roleManager.FindByNameAsync(name);
+        }
+
+        public async Task AddRole(string name)
+        {
+            await _roleManager.CreateAsync(new IdentityRole(name));
+        }
+
+        public async Task<User> FindUser(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task AddToRole(User user, string role)
+        {
+           await _userManager.AddToRoleAsync(user, role);
         }
     }
 }
