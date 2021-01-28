@@ -61,7 +61,7 @@ namespace Libraly_test2_.Areas.Account
         }
 
 
-       
+       [HttpGet]
         public IActionResult AddBooks()
         {
             return View();

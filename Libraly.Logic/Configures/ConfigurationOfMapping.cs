@@ -28,6 +28,9 @@ namespace Libraly.Logic.Configures
             CreateMap<ChangePasswordViewsModel, UserModelView>();
             CreateMap<UserModelView, ChangePasswordViewsModel>();
 
+            CreateMap<User, UserModelView>();
+            CreateMap<UserModelView, User>();
+
         }
 
 

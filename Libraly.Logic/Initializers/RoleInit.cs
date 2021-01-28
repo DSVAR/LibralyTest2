@@ -10,7 +10,9 @@ namespace Libraly.Logic.Initializers
 {
     public class RoleInit
     {
-        public static async Task InitAsync(UserManager<UserModelView> userManager, RoleManager<IdentityRole> roleManager)
+
+        // сделать все через сервисы!!!!!
+        public static async Task InitAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             const string admin = "Администратор";
             string adminEmail = "admin@gmail.com";

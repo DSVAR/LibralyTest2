@@ -11,6 +11,7 @@ using Libraly.Data.Entities;
 using AutoMapper;
 using Libraly.Logic.Services;
 using Libraly.Logic.Interfaces;
+using Libraly.Logic.Models.UserDTO;
 
 namespace Libraly.Logic.Configures
 {
@@ -18,10 +19,11 @@ namespace Libraly.Logic.Configures
     {
         public static IServiceCollection InitServices(IServiceCollection services,IConfiguration configuration)
         {
+            
             services.AddDbContext<ApplicationContext>
                 (options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-
+            
             services.AddIdentity<User, IdentityRole>(opt =>
             {
                 opt.SignIn.RequireConfirmedEmail = false;

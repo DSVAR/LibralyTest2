@@ -16,6 +16,7 @@ using Libraly_test2_.Areas.Account;
 using Libraly.Logic.Services;
 using Libraly.Logic.Interfaces;
 using Libraly.Logic.Configures;
+using Libraly.Logic.Models.UserDTO;
 
 namespace Libraly_test2_
 {
@@ -31,11 +32,11 @@ namespace Libraly_test2_
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationContext>(options => 
+            //services.AddDbContext<ApplicationContext>(options =>
             //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            //services.AddIdentity<User, IdentityRole>(opt =>
+            //services.AddIdentity<UserModelView, IdentityRole>(opt =>
             //{
             //    opt.SignIn.RequireConfirmedEmail = false;
             //    opt.Password.RequireNonAlphanumeric = false;
@@ -44,7 +45,7 @@ namespace Libraly_test2_
             //    .AddEntityFrameworkStores<ApplicationContext>();
 
 
-            //services.AddTransient<IUserService, UserService>();
+//            services.AddTransient<IUserService, UserService>();
 
             ConfigureService.InitServices(services, Configuration);
             services.AddTransient<ConfigurationOfMapping>();
