@@ -36,16 +36,6 @@ namespace Libraly_test2_
             //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            //services.AddIdentity<UserModelView, IdentityRole>(opt =>
-            //{
-            //    opt.SignIn.RequireConfirmedEmail = false;
-            //    opt.Password.RequireNonAlphanumeric = false;
-            //})
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationContext>();
-
-
-//            services.AddTransient<IUserService, UserService>();
 
             ConfigureService.InitServices(services, Configuration);
             services.AddTransient<ConfigurationOfMapping>();
