@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Libraly.Logic.Models.BookDTO
 {
@@ -8,12 +8,16 @@ namespace Libraly.Logic.Models.BookDTO
     {
      
         public long Id { get; set; }
-        public int YearOfBook { get; set; }
+        public DateTime YearOfBook { get; set; }
+        
         public string Name { get; set; }
+        [Required(ErrorMessage = "ФИО или псевдоним пустой")]
         public string Author { get; set; }
-        public string description { get; set; }
-        public int count { get; set; }
+        [Required(ErrorMessage = "Описание пустое")]
+        public string Description { get; set; }
+        public int Count { get; set; }
         public string PhotoPath { get; set; }
+        [Required(ErrorMessage = "Пустой жанр")]
         public string Genres { get; set; }
     }
 }

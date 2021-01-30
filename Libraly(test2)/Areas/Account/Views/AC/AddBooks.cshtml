@@ -1,6 +1,32 @@
 ﻿@{
     Layout = "_ALayout";
     ViewData["ActivePage"] = ManageNavPages.AddBooks;
-    
+
 }
-pisun
+@model BookViewModel 
+
+<form method="post">
+    <div class="row card-columns">
+        @*левая колонка*@
+        <div class="editor-label form-group col">
+        
+            <label class="float-left">Автор</label>
+            <input asp-for="Author" class="form-control"/>
+            <span asp-validation-for="Author" class="input-validation-error"></span>
+
+            <label class="float-left">Автор</label>
+            <input asp-for="Author" class="form-control"/>
+            <span asp-validation-for="Author" class="input-validation-error"></span>
+        </div>
+        @*правая колонка*@
+        <div class="editor-label form-group col">
+            <label class="float-left">Имя</label>
+            <input asp-for="Author" class="form-control"/>
+            <span asp-validation-for="Author" class="input-validation-error"></span>
+
+            <label class="float-left">Автор</label>
+            <input asp-for="Author" class="form-control"/>
+            <span asp-validation-for="Author" class="input-validation-error"></span>
+        </div>
+    </div>
+</form>

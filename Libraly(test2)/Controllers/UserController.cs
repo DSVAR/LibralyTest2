@@ -16,20 +16,16 @@ namespace Libraly_test2_.Controllers
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;
-        private readonly ApplicationContext AppContext;
+        
 
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+  
 
 
-        public UserController(ILogger<UserController> logger, ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager, IUserService userService, IMapper mapper)
+        public UserController(ILogger<UserController> logger,  IUserService userService, IMapper mapper)
         {
-            _logger = logger;
-            AppContext = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _logger = logger;        
             _userService = userService;
             _mapper = mapper;
         }

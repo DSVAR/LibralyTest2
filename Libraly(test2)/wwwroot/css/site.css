@@ -77,7 +77,7 @@ body {
 }
 
 .input-validation-error{
-  
+    border-color: red; 
     color:red;
 }
 

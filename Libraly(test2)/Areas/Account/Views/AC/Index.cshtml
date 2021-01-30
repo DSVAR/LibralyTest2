@@ -1,6 +1,5 @@
 ﻿@model Libraly.Logic.Models.UserDTO.ChangePasswordViewsModel
-@using Libraly_test2_.Areas.Account.View.AC
-@using Libraly_test2_.Areas.Account
+
 @{
     Layout = "_ALayout";
     ViewData["ActivePage"] = ManageNavPages.Index;
@@ -16,7 +15,7 @@
         <div class="editor-label form-group col">
 
             <label class="float-left">Старый пароль</label>
-            <input asp-for="OldPassword" class="form-control" form-control" placeholder="Nagibator" />
+            <input asp-for="OldPassword" class="form-control"  placeholder="Nagibator" />
             <span asp-validation-for="OldPassword" style="border-color:red; color:red " ></span>
 
             <label class="float-left">Новый пароль</label>
