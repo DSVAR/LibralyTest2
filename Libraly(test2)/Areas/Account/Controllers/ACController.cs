@@ -8,19 +8,21 @@ using AutoMapper;
 using Libraly.Logic.Interfaces;
 using Libraly.Logic.Models.BookDTO;
 
+
 namespace Libraly_test2_.Areas.Account
 {
     public class ACController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly IBookService _bookService;
         //private readonly UserManager<User> _userManager;
 
-        public ACController(UserManager<User> userManager, IUserService userService,IMapper mapper)
+        public ACController(IUserService userService,IMapper mapper, IBookService bookService)
         {
-         //   _userManager = userManager;
             _userService = userService;
             _mapper = mapper;
+            _bookService = bookService;
         }
         // GET: AccountController
         public ActionResult Index()
@@ -70,10 +72,9 @@ namespace Libraly_test2_.Areas.Account
 
 
         [HttpPost]
-
         public IActionResult AddBooks(BookViewModel model)
         {
-            var book = _mapper.Map<BookViewModel>(model);
+            _bookService.Creat(model);
             return View(model);
         }
     }

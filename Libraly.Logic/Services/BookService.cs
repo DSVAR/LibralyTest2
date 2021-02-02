@@ -9,15 +9,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Libraly.Logic.Services
 {
-    public class BookService : IData<BookViewModel>
+    public class BookService : IBookService
     {
         IBasedata<Book> _repository;
         IUnitOfWork _unitOfWork;
         IMapper _mapper;
-        BookViewModel sw = new BookViewModel();
+     
        
         public BookService(IBasedata<Book> repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -26,28 +27,29 @@ namespace Libraly.Logic.Services
             _mapper = mapper;
         }
 
-        public void Creat(BookViewModel obj)
+        public void Creat(BookViewModel model)
         {
-            _repository.Create(_mapper.Map<Book>(obj));
+            var book = _mapper.Map<Book>(model);
+            _repository.Create(book);
             _unitOfWork.Save();
         }
 
-        public void Delete(BookViewModel obj)
+        public void Delete(BookViewModel model)
         {
-            _repository.Delete(_mapper.Map<Book>(obj));
+            var book = _mapper.Map<Book>(model);
+            _repository.Delete(book);
             _unitOfWork.Save();
         }
 
-        public IQueryable<BookViewModel> Read()
+        public IQueryable GetBook()
         {
-            var item = _mapper.Map<List<BookViewModel>>(_repository.Read().ProjectTo<BookViewModel>(_mapper.ConfigurationProvider)).AsQueryable();
-            var items = _repository.Read().AsQueryable();
-            return item;
+            return _repository.Read();
         }
 
-        public void Update(BookViewModel obj)
+        public void Update(BookViewModel model)
         {
-            _repository.Update(_mapper.Map<Book>(obj));
+            var book = _mapper.Map<Book>(model);
+            _repository.Update(book);
             _unitOfWork.Save();
         }
     }

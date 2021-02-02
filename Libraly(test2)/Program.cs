@@ -36,7 +36,7 @@ namespace Libraly_test2_
                 catch(Exception ex)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "������ � ����������� � ���� ������");
+                    logger.LogError(ex, "Проблема с добавление в бд");
                 }
             }
 

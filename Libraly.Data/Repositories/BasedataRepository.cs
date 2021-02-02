@@ -20,19 +20,20 @@ namespace Libraly.Data.Repositories
             _context = context;
             dbSet = context.Set<T>();
         }
-        public void Create(T obj)
+        public async Task Create(T obj)
         {
-            dbSet.Add(obj);
+           await _context.AddAsync(obj);
         }
 
         public void Delete(T obj)
         {
-            dbSet.Remove(obj);
+            _context.Remove<T>(obj);
         }
 
         public IQueryable<T> Read()
         {
-            var items= dbSet.AsQueryable<T>();
+            var items = dbSet.AsQueryable();
+            var i = _context.FindAsync<T>();
             return items;
         }
 
@@ -40,7 +41,7 @@ namespace Libraly.Data.Repositories
 
         public void Update(T obj)
         {
-            dbSet.Update(obj);
+            _context.Update(obj);
         }
     }
 }

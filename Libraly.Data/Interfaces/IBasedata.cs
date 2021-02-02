@@ -9,7 +9,7 @@ namespace Libraly.Data.Interfaces
 {
     public interface IBasedata<T> where T : class
     {
-        void Create(T obj);
+        Task Create(T obj);
         IQueryable<T> Read();
         void Update(T obj);
         void Delete(T obj);
