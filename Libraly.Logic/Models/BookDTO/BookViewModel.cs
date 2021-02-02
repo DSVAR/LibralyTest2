@@ -8,7 +8,7 @@ namespace Libraly.Logic.Models.BookDTO
     {
      
         public long Id { get; set; }
-        public DateTime YearOfBook { get; set; }
+        public int YearOfBook { get; set; }
         
         public string Name { get; set; }
         [Required(ErrorMessage = "ФИО или псевдоним пустой")]

@@ -10,10 +10,6 @@ namespace Libraly.Logic.Configures
     {
         public ConfigurationOfMapping()
         {
-            //var config = new MapperConfiguration(cfg =>{
-            //    cfg.CreateMap<LoginViewModel, User>();
-            ////    cfg.AddProfile<User>();
-            //});
             //книги
             CreateMap<BookViewModel, Book>();
             CreateMap<Book,BookViewModel>();

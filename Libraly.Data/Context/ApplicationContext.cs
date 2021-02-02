@@ -10,7 +10,8 @@ namespace Libraly.Data.Context
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
-        {               
+        {
+           
         }
         
         protected override void OnModelCreating(ModelBuilder builder)

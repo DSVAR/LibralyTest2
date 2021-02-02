@@ -32,11 +32,7 @@ namespace Libraly_test2_
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationContext>(options =>
-            //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-
-
-
+           
             ConfigureService.InitServices(services, Configuration);
             services.AddTransient<ConfigurationOfMapping>();
             services.AddControllersWithViews();

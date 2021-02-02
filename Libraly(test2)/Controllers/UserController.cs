@@ -41,8 +41,7 @@ namespace Libraly_test2_.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var user = new User { UserName = model.UserName, FullName = model.FullName, FirstName = model.FirstName, Email = model.Email };
-                //var resulr = await _userManager.CreateAsync(user, model.Password);
+
                 var user = _mapper.Map<UserModelView>(model);
                 var result = await _userService.Creat(user);
 
@@ -114,11 +113,7 @@ namespace Libraly_test2_.Controllers
             return Redirect("~/Home/Index");
         }
 
-        [HttpGet]
-        public IActionResult Account()
-        {
-            return RedirectToAction("Account/");
-        }
+   
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

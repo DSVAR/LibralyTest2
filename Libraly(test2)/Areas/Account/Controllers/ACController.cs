@@ -6,6 +6,7 @@ using Libraly.Logic.Models.UserDTO;
 using Libraly.Logic.Services;
 using AutoMapper;
 using Libraly.Logic.Interfaces;
+using Libraly.Logic.Models.BookDTO;
 
 namespace Libraly_test2_.Areas.Account
 {
@@ -65,6 +66,15 @@ namespace Libraly_test2_.Areas.Account
         public IActionResult AddBooks()
         {
             return View();
+        }
+
+
+        [HttpPost]
+
+        public IActionResult AddBooks(BookViewModel model)
+        {
+            var book = _mapper.Map<BookViewModel>(model);
+            return View(model);
         }
     }
 }

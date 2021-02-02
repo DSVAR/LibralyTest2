@@ -17,7 +17,8 @@ namespace Libraly.Logic.Configures
         {
             
             services.AddDbContext<ApplicationContext>
-                (options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")
+                (options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
+                b=>b.MigrationsAssembly("Libraly.Data")
                 ));
 
             
