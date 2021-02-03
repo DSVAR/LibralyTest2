@@ -11,6 +11,7 @@ using Libraly.Logic.Models.UserDTO;
 using Libraly.Logic.Interfaces;
 using AutoMapper;
 
+
 namespace Libraly_test2_.Controllers
 {
     public class UserController : Controller
@@ -20,6 +21,7 @@ namespace Libraly_test2_.Controllers
 
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+ 
   
 
 
@@ -28,6 +30,7 @@ namespace Libraly_test2_.Controllers
             _logger = logger;        
             _userService = userService;
             _mapper = mapper;
+    
         }
 
         [HttpGet]
@@ -48,8 +51,7 @@ namespace Libraly_test2_.Controllers
                 if (result.Succeeded)
                 {
                     await _userService.LogIn(user, false);
-                   // await _signInManager.SignInAsync(user, false);
-                   // await _userManager.AddToRoleAsync(user, "Пользователь");
+
                     await _userService.AddRole(user, "Пользователь");
                     return RedirectToAction("Index", "Home");
                 }

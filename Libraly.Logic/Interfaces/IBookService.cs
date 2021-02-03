@@ -14,7 +14,7 @@ namespace Libraly.Logic.Interfaces
         void Creat(BookViewModel model);
         void Delete(BookViewModel model);
         void Update(BookViewModel model);
-
+        Task<string> UploadPhoto(string path);
 
     }
 }

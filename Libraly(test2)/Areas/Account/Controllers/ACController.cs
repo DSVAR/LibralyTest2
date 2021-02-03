@@ -7,7 +7,8 @@ using Libraly.Logic.Services;
 using AutoMapper;
 using Libraly.Logic.Interfaces;
 using Libraly.Logic.Models.BookDTO;
-
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Libraly_test2_.Areas.Account
 {
@@ -16,13 +17,14 @@ namespace Libraly_test2_.Areas.Account
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IBookService _bookService;
-        //private readonly UserManager<User> _userManager;
+        private readonly  IWebHostEnvironment _webHostEnviroment;
 
-        public ACController(IUserService userService,IMapper mapper, IBookService bookService)
+        public ACController(IUserService userService,IMapper mapper, IBookService bookService, IWebHostEnvironment webHostEnviroment)
         {
             _userService = userService;
             _mapper = mapper;
             _bookService = bookService;
+            _webHostEnviroment = webHostEnviroment;
         }
         // GET: AccountController
         public ActionResult Index()
@@ -74,6 +76,8 @@ namespace Libraly_test2_.Areas.Account
         [HttpPost]
         public IActionResult AddBooks(BookViewModel model)
         {
+            var path = _webHostEnviroment.WebRootPath + "Images";
+            var pathsecond = Path.Combine(_webHostEnviroment.ContentRootPath, "Images");
             _bookService.Creat(model);
             return View(model);
         }

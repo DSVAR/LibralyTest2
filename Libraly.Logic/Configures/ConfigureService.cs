@@ -32,11 +32,14 @@ namespace Libraly.Logic.Configures
                .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddAutoMapper(typeof(ConfigurationOfMapping));
+           
 
-           services.AddTransient(typeof(IUserService), typeof(UserService));
-            services.AddTransient(typeof(IBookService),typeof(BookService));
+            services.AddTransient(typeof(IUserService), typeof(UserService));
+           
+            services.AddScoped(typeof(IBookService),typeof(BookService));
             services.AddTransient(typeof(IBasedata<>), typeof(BasedataRepository<>));
             services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWorkRepository));
+
             return services;
         }
     }
