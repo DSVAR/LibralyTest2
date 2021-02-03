@@ -9,6 +9,8 @@ using Libraly.Logic.Interfaces;
 using Libraly.Logic.Models.BookDTO;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Http;
+using System.Collections;
 
 namespace Libraly_test2_.Areas.Account
 {
@@ -18,13 +20,14 @@ namespace Libraly_test2_.Areas.Account
         private readonly IUserService _userService;
         private readonly IBookService _bookService;
         private readonly  IWebHostEnvironment _webHostEnviroment;
-
+        
         public ACController(IUserService userService,IMapper mapper, IBookService bookService, IWebHostEnvironment webHostEnviroment)
         {
             _userService = userService;
             _mapper = mapper;
             _bookService = bookService;
             _webHostEnviroment = webHostEnviroment;
+            
         }
         // GET: AccountController
         public ActionResult Index()
@@ -74,11 +77,29 @@ namespace Libraly_test2_.Areas.Account
 
 
         [HttpPost]
-        public IActionResult AddBooks(BookViewModel model)
+        public IActionResult AddBooks(BookViewModel model,IFormFile formFile)
         {
-            var path = _webHostEnviroment.WebRootPath + "Images";
-            var pathsecond = Path.Combine(_webHostEnviroment.ContentRootPath, "Images");
-            _bookService.Creat(model);
+
+            if (model.Url != null || formFile != null)
+            {
+                if (model.Url != null && formFile != null)
+                    ModelState.AddModelError("PhotoPath", "Выбрать один из ресурсов обложки");
+            }
+            else
+            {
+                ModelState.AddModelError("PhotoPath", "Выберете обложку");
+            }
+
+            if (ModelState.IsValid) {
+
+                
+
+                var path = _webHostEnviroment.WebRootPath + "Images";
+                var pathsecond = Path.Combine(_webHostEnviroment.WebRootPath, "Images");
+                _bookService.Creat(model);
+            }
+            
+
             return View(model);
         }
     }

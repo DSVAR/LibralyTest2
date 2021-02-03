@@ -5,7 +5,7 @@
 }
 @model BookViewModel
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="row card-columns">
         @*левая колонка*@
         <div class="editor-label form-group col">
@@ -36,7 +36,7 @@
 
             <label class="float-left">Жанр</label>
             <input asp-for="Genres" class="form-control" placeholder="Роман"/>
-            <span asp-validation-for="Genres"></span>
+            <span asp-validation-for="Genres" class="input-validation-error"></span>
 
         </div>
 
@@ -45,7 +45,8 @@
 
     <div class="custom-file">
         <label class="custom-file-label">Фото</label>
-        <input type="file" class="custom-file-input form-control" />
+        <input type="file" name="formFile" class="custom-file-input form-control" />
+        <span asp-validation-for="PhotoPath" class="input-validation-error"></span>
     </div>
 
 

@@ -9,7 +9,7 @@ namespace Libraly.Logic.Models.BookDTO
      
         public long Id { get; set; }
         public int YearOfBook { get; set; }
-        
+        [Required(ErrorMessage ="Пустое название книг")]
         public string Name { get; set; }
         [Required(ErrorMessage = "ФИО или псевдоним пустой")]
         public string Author { get; set; }
@@ -18,6 +18,7 @@ namespace Libraly.Logic.Models.BookDTO
         public int Count { get; set; }
         public string PhotoPath { get; set; }
         [Required(ErrorMessage = "Пустой жанр")]
+        public string Url { get; set; }
         public string Genres { get; set; }
     }
 }
