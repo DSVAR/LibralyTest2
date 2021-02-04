@@ -1,5 +1,6 @@
 ﻿using Libraly.Data.Entities;
 using Libraly.Logic.Models.BookDTO;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Libraly.Logic.Interfaces
         void Creat(BookViewModel model);
         void Delete(BookViewModel model);
         void Update(BookViewModel model);
-        Task<string> UploadPhoto(string path);
+        Task<string> UploadPhoto(string path, IFormFile formFile);
 
     }
 }

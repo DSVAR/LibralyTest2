@@ -20,15 +20,15 @@ namespace Libraly.Logic.Services
         IBasedata<Book> _repository;
         IUnitOfWork _unitOfWork;
         IMapper _mapper;
-       
-       
+
+
 
         public BookService(IBasedata<Book> repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-           
+
         }
 
         public void Creat(BookViewModel model)
@@ -57,20 +57,16 @@ namespace Libraly.Logic.Services
             _unitOfWork.Save();
         }
 
-        public async Task<string> UploadPhoto(string path)
+        public async Task<string> UploadPhoto(string path, IFormFile formFile)
         {
-            var uniqName = Guid.NewGuid().ToString() + "__"/* + _formFile.FileName*/;
-            //if (_formFile != null)
-            //{
-               
-            //    var filePath = Path.Combine(path, uniqName);
-            //    using (var fileStream=new FileStream(filePath, FileMode.Create))
-            //    {
-            //        await _formFile.CopyToAsync(fileStream);
-            //    }
-             
-            //}
+            var uniqName = Guid.NewGuid().ToString() + "__" + formFile.FileName;
+            var filePath = Path.Combine(path, uniqName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await formFile.CopyToAsync(fileStream);
+            }
             return uniqName;
+
         }
     }
 }

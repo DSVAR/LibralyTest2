@@ -78,9 +78,9 @@ namespace Libraly_test2_.Areas.Account
 
 
         [HttpPost]
-        public IActionResult AddBooks(BookViewModel model,IFormFile formFile)
+        public async Task<IActionResult> AddBooks(BookViewModel model,IFormFile formFile)
         {
-            
+
             if (model.Url != null || formFile != null)
             {
                 if (model.Url != null && formFile != null)
@@ -91,19 +91,21 @@ namespace Libraly_test2_.Areas.Account
                 ModelState.AddModelError("PhotoPath", "Выберете обложку");
             }
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
+                var path = Path.Combine(_webHostEnviroment.WebRootPath, "Images");
+                if (formFile != null)
+                    model.PhotoPath = await _bookService.UploadPhoto(path, formFile);
 
-                
-
-                var path = _webHostEnviroment.WebRootPath + "Images";
-                var pathsecond = Path.Combine(_webHostEnviroment.WebRootPath, "Images");
                 _bookService.Creat(model);
+                return Redirect("~/Account/AC/AddBooks");
             }
-           
+            else
+            {
+                return View(model);
+            }
 
-
-
-            return View(model);
+            
         }
     }
 }

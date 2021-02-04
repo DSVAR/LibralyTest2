@@ -15,14 +15,16 @@
             <span asp-validation-for="Author" class="input-validation-error"></span>
 
             <label class="float-left">Год выхода</label>
-            <input type="number" asp-for="YearOfBook" class="form-control" value="50" />
+            <input type="number" asp-for="YearOfBook" class="form-control"min="1976" max="2021" value="2001" />
             <span asp-validation-for="YearOfBook" class="input-validation-error"></span>
 
             <label class="float-left">Описание</label>
-            <textarea asp-for="Description" class="form-control input-description" placeholder="Книга о великом докторе Лекторе."> </textarea>
+            <textarea  asp-for="Description" class="form-control  textAreaSize" placeholder="Книга о великом докторе Лекторе."> </textarea>
             <span asp-validation-for="Description" class="input-validation-error"></span>
-            
 
+            <label class="col-form-label">Фото</label>
+            <input type="file" name="formFile" class="@*custom-file-input*@ form-control-file" />
+            <span asp-validation-for="PhotoPath" class="input-validation-error"></span>
         </div>
         @*правая колонка*@
         <div class="editor-label form-group col">
@@ -40,17 +42,21 @@
             <input asp-for="Genres" class="form-control" placeholder="Роман" />
             <span asp-validation-for="Genres" class="input-validation-error"></span>
 
+            <label class="float-left">URl</label>
+            <input asp-for="Url" class="form-control" placeholder="url" />
+            <span asp-validation-for="Url" class="input-validation-error"></span>
+
         </div>
 
 
     </div>
 
-    <div class="custom-file">
-        <label class="custom-file-label">Фото</label>
-        <input type="file" name="formFile" class="custom-file-input form-control" />
-        <span asp-validation-for="PhotoPath" class="input-validation-error"></span>
-    </div>
+    <div class="form-group">
 
+    </div>
+    <div class="form-group">
+
+    </div>
 
     <div class="btn ">
         <button type="submit" class=" btn btn-success">Добавить</button>
