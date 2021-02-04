@@ -11,16 +11,18 @@
         <div class="editor-label form-group col">
 
             <label class="float-left">Автор</label>
-            <input asp-for="Author" class="form-control" placeholder="Томас Харрис"/>
+            <input asp-for="Author" class="form-control" placeholder="Томас Харрис" />
             <span asp-validation-for="Author" class="input-validation-error"></span>
 
             <label class="float-left">Год выхода</label>
-            <input type="number" asp-for="YearOfBook" class="form-control" value="50"/>
+            <input type="number" asp-for="YearOfBook" class="form-control" value="50" />
             <span asp-validation-for="YearOfBook" class="input-validation-error"></span>
 
             <label class="float-left">Описание</label>
             <textarea asp-for="Description" class="form-control input-description" placeholder="Книга о великом докторе Лекторе."> </textarea>
             <span asp-validation-for="Description" class="input-validation-error"></span>
+            
+
         </div>
         @*правая колонка*@
         <div class="editor-label form-group col">
@@ -31,11 +33,11 @@
             <span asp-validation-for="Name" class="input-validation-error"></span>
 
             <label class="float-left">Количество</label>
-            <input asp-for="Count" type ="number" class="form-control" min="1" value="1"/>
+            <input asp-for="Count" type="number" class="form-control" min="1" value="1" />
             <span asp-validation-for="Count" class="input-validation-error"></span>
 
             <label class="float-left">Жанр</label>
-            <input asp-for="Genres" class="form-control" placeholder="Роман"/>
+            <input asp-for="Genres" class="form-control" placeholder="Роман" />
             <span asp-validation-for="Genres" class="input-validation-error"></span>
 
         </div>

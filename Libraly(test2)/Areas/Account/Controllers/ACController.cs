@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Collections;
+using System;
 
 namespace Libraly_test2_.Areas.Account
 {
@@ -79,7 +80,7 @@ namespace Libraly_test2_.Areas.Account
         [HttpPost]
         public IActionResult AddBooks(BookViewModel model,IFormFile formFile)
         {
-
+            
             if (model.Url != null || formFile != null)
             {
                 if (model.Url != null && formFile != null)
@@ -98,7 +99,9 @@ namespace Libraly_test2_.Areas.Account
                 var pathsecond = Path.Combine(_webHostEnviroment.WebRootPath, "Images");
                 _bookService.Creat(model);
             }
-            
+           
+
+
 
             return View(model);
         }
