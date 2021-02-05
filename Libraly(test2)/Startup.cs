@@ -71,7 +71,7 @@ namespace Libraly_test2_
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Book}/{id?}");
             });
         }
     }

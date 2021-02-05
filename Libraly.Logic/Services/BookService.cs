@@ -45,9 +45,10 @@ namespace Libraly.Logic.Services
             _unitOfWork.Save();
         }
 
-        public IQueryable GetBook()
+        public IQueryable<BookViewModel> GetBooks()
         {
-            return _repository.Read();
+            var books = _mapper.Map<List<BookViewModel>>(_repository.Read());
+            return books.AsQueryable();
         }
 
         public void Update(BookViewModel model)

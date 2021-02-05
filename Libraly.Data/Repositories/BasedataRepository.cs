@@ -33,7 +33,7 @@ namespace Libraly.Data.Repositories
         public IQueryable<T> Read()
         {
             var items = dbSet.AsQueryable();
-            var i = _context.FindAsync<T>();
+     //       var i = _context.FindAsync<T>();
             return items;
         }
 

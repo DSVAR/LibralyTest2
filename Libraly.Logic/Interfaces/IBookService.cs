@@ -11,7 +11,7 @@ namespace Libraly.Logic.Interfaces
 {
     public interface IBookService
     {
-        IQueryable GetBook();
+        IQueryable<BookViewModel> GetBooks();
         void Creat(BookViewModel model);
         void Delete(BookViewModel model);
         void Update(BookViewModel model);

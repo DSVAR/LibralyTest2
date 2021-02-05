@@ -95,7 +95,7 @@ namespace Libraly_test2_.Areas.Account
             {
                 var path = Path.Combine(_webHostEnviroment.WebRootPath, "Images");
                 if (formFile != null)
-                    model.PhotoPath = await _bookService.UploadPhoto(path, formFile);
+                    model.PhotoPath =$"/Images/{await _bookService.UploadPhoto(path, formFile)}";
 
                 _bookService.Creat(model);
                 return Redirect("~/Account/AC/AddBooks");

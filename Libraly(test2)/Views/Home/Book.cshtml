@@ -1,0 +1,12 @@
+﻿@model IEnumerable<BookViewModel>
+ 
+<div class="list-group-item">
+    @foreach (var w in Model)
+    {
+        var photo = $"{w.PhotoPath ?? w.Url }";
+        var photoPath = $"{w.PhotoPath ?? w.Url}";
+
+        <img style="width:10%; height:10%;" src="@photo" />
+        @*<img class="card-img" src="@photoPath" style="width:10%; height:10%;"/>*@
+    }
+</div>
